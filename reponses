@@ -1,0 +1,41 @@
+2.1.2 : J'ai choisi le masque /24 et le reseau 192.168.10.0 . le PC1 aura l'ip 192.168.10.11 et le PC2 aura l'ip 192.168.10.12
+
+2.1.2 : 2 : 	em0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> metric 0 mtu 1500
+      		options=81009b<RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM,VLAN_HWFILTER>
+      		ether 08:00:27:71:c1:22
+      		inet 192.168.10.11 netmask 0xffffff00 broadcast 192.168.10.255
+      		media: Ethernet autoselect (1000baseT <full-duplex>)
+      		status: active
+      		nd6 options=29<PERFORMNUD,IFDISABLED,AUTO_LINKLOCAL>
+      		
+      		
+      		/24 -> 255.255.255.0 -> 0xffffff00
+      		l'adresse de broadcast correspond à la derniere adresse (ici en tous cas) donc 			192.168.10.255
+      		
+ Sur chaque machine on rajoute :
+ 192.168.10.11 PC1
+ 192.168.10.12 PC2
+ 192.168.10.13 PC3
+ 192.168.10.14 PC4
+ 
+ 2.2 : 3 : une machine envoie un paquet ICMP à un autre machine qui repond simplement en renvoyant une réponse.
+ 
+ 2.2 : 4 : Arp sert à resoudre les adresses ip en réseau local. ainsi la table arp contient la correspondance entre adresse IP et adresse Ethernet. Elle apparaitre qu'une seule fois au debut car ensuite, la paire adresse IP / adresse ether sera gardé en cache (de manière permanente ou pas (expiration))
+ 
+ 2.4 :	block size :	kbit/s
+ 	10	:	17310
+ 	20	:	31764
+ 	100	:	171612
+ 	1000	:	1334964
+ 	1472	:	1838068
+ 	1473	:	987301
+ 	2800	:	1806222
+ 	3000	:	1350449
+ 	
+ 	L'explication de ces variantions est plutot simple : les données sont envoyé par paquet
+ 	qui ont environ le meme temps d'envoyer quequelque soi la taille des données qu'il
+ 	contient. La taille maximal est des données est 1472. donc en envoyant de 1472 bits de
+ 	données on utilise à 100% la taille du paquet. mais si on envoi un paquet "plein" puis un
+ 	autre paquet contenant juste 1 bits. d'ou le fait que le debit soi divisé par 2 ( = x1/2 )
+ 	lors du passage de 1472 à 1473. le debit sera divisé de 1,5 (= x2/3) du passage de
+ 	2944 à 2945.
